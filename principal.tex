@@ -1,0 +1,221 @@
+% ----------------------------------------------------------
+% VERSÃO ORIGINAL
+% ----------------------------------------------------------
+% The Current Maintainer of this work is the abnTeX2 team, led
+% by Lauro César Araujo. Further information are available on 
+% http://abntex2.googlecode.com/
+
+\documentclass[
+	% -- opções da classe memoir --
+	12pt,				% tamanho da fonte
+	openright,			% capítulos começam em pág ímpar (insere página vazia caso preciso)
+	oneside,			% para impressão em verso e anverso coloque twoside
+	a4paper,			% tamanho do papel. 
+	% -- opções da classe abntex2 --
+	%chapter=TITLE,		% títulos de capítulos convertidos em letras maiúsculas
+	%section=TITLE,		% títulos de seções convertidos em letras maiúsculas
+	%subsection=TITLE,	% títulos de subseções convertidos em letras maiúsculas
+	%subsubsection=TITLE,% títulos de subsubseções convertidos em letras maiúsculas
+	% -- opções do pacote babel --
+	english,			% idioma adicional para hifenização
+	french,				% idioma adicional para hifenização
+	spanish,			% idioma adicional para hifenização
+	brazil				% o último idioma é o principal do documento
+	]{abntex2}
+
+
+% ----------------------------------------------------------
+% PACOTES
+% ----------------------------------------------------------
+\input{pacotes}
+
+% ----------------------------------------------------------
+% CAPA E FOLHA DE ROSTO
+% ----------------------------------------------------------
+\input{elementos-pretextuais/capa}
+
+% ----------------------------------------------------------
+% CONFIGURAÇÕES
+% ----------------------------------------------------------
+
+% Configurações de aparência do PDF final
+
+% alterando o aspecto da cor azul
+\definecolor{blue}{RGB}{41,5,195}
+
+% informações do PDF
+\makeatletter
+\hypersetup{
+        %pagebackref=true,
+        pdftitle={\@title}, 
+        pdfauthor={\@author},
+        pdfsubject={\imprimirpreambulo},
+        pdfcreator={LaTeX with abnTeX2},
+        pdfkeywords={abnt}{latex}{abntex}{abntex2}{trabalho acadêmico}, 
+        colorlinks=true,            % false: boxed links; true: colored links
+        linkcolor=blue,             % color of internal links
+        citecolor=blue,             % color of links to bibliography
+        filecolor=magenta,              % color of file links
+        urlcolor=blue,
+        bookmarksdepth=4
+}
+\makeatother
+
+% Espaçamentos entre linhas e parágrafos 
+% O tamanho do parágrafo é dado por:
+\setlength{\parindent}{1.3cm}
+
+% Controle do espaçamento entre um parágrafo e outro:
+\setlength{\parskip}{0.2cm}  % tente também \onelineskip
+
+% compila o indice
+\makeindex
+
+% ----------------------------------------------------------
+% INÍCIO DOCUMENTO
+% ----------------------------------------------------------
+\begin{document}
+
+% Retira espaço extra obsoleto entre as frases.
+\frenchspacing 
+
+% ----------------------------------------------------------
+% ELEMENTOS PRÉ-TEXTUAIS
+% ----------------------------------------------------------
+% \pretextual
+
+% Capa
+\imprimircapa
+
+% Folha de rosto
+% (o * indica que haverá a ficha bibliográfica)
+\imprimirfolhaderosto*
+
+\input{elementos-pretextuais/ficha-catalografica}
+\input{elementos-pretextuais/errata}
+\input{elementos-pretextuais/folha-aprovacao}
+\input{elementos-pretextuais/dedicatoria}
+\input{elementos-pretextuais/agradecimentos}
+\input{elementos-pretextuais/epigrafe}
+\input{elementos-pretextuais/resumos}
+\input{elementos-pretextuais/epigrafe}
+
+
+% ----------------------------------------------------------
+% inserir lista de ilustrações
+% ----------------------------------------------------------
+\pdfbookmark[0]{\listfigurename}{lof}
+\listoffigures*
+\cleardoublepage
+
+% ----------------------------------------------------------
+% inserir lista de tabelas
+% ----------------------------------------------------------
+\pdfbookmark[0]{\listtablename}{lot}
+\listoftables*
+\cleardoublepage
+
+% ----------------------------------------------------------
+% inserir lista siglas e abreviaturas
+% ----------------------------------------------------------
+\input{elementos-pretextuais/siglas}
+
+% ----------------------------------------------------------
+% inserir lista símbolos
+\input{elementos-pretextuais/simbolos}
+% ----------------------------------------------------------
+
+% ----------------------------------------------------------
+% inserir o sumario
+% ----------------------------------------------------------
+\pdfbookmark[0]{\contentsname}{toc}
+\tableofcontents*
+\cleardoublepage
+
+% ----------------------------------------------------------
+% ELEMENTOS TEXTUAIS
+% ----------------------------------------------------------
+\textual
+
+% ----------------------------------------------------------
+% Introdução (exemplo de capítulo sem numeração, mas presente no Sumário)
+% ----------------------------------------------------------
+% TODO inserir seu capítulo 1 aqui
+\chapter*[Introdução]{Introdução}
+\addcontentsline{toc}{chapter}{Introdução}
+% ----------------------------------------------------------
+\include{elementos-textuais/introducao}
+
+% ----------------------------------------------------------
+% PARTE
+% ----------------------------------------------------------
+\part{Preparação da pesquisa}
+
+% ----------------------------------------------------------
+% Capitulo com exemplos de comandos inseridos de arquivo externo 
+% ----------------------------------------------------------
+\include{elementos-textuais/capitulo-1}
+
+% ----------------------------------------------------------
+% PARTE
+% ----------------------------------------------------------
+\part{Dicas de úteis}
+
+% ----------------------------------------------------------
+% Capitulo com exemplos de comandos inseridos de arquivo externo 
+% ----------------------------------------------------------
+\include{elementos-textuais/capitulo-2}
+% ----------------------------------------------------------
+
+% Finaliza a parte no bookmark do PDF
+% para que se inicie o bookmark na raiz
+% e adiciona espaço de parte no Sumário
+% ----------------------------------------------------------
+\phantompart
+
+% ----------------------------------------------------------
+% Conclusão (outro exemplo de capítulo sem numeração e presente no sumário)
+% ----------------------------------------------------------
+\chapter*[Conclusão]{Conclusão}
+\addcontentsline{toc}{chapter}{Conclusão}
+% ----------------------------------------------------------
+\input{elementos-textuais/conclusao}
+
+% ----------------------------------------------------------
+% ELEMENTOS PÓS-TEXTUAIS
+% ----------------------------------------------------------
+\postextual
+% ----------------------------------------------------------
+
+% ----------------------------------------------------------
+% Referências bibliográficas
+% ----------------------------------------------------------
+\bibliography{elementos-postextuais/referencias}
+
+% ----------------------------------------------------------
+% Glossário
+% ----------------------------------------------------------
+%
+% Consulte o manual da classe abntex2 para orientações sobre o glossário.
+%
+%\glossary
+
+% ----------------------------------------------------------
+% Apêndices
+% ----------------------------------------------------------
+\input{elementos-postextuais/apendices}
+
+
+% ----------------------------------------------------------
+% Anexos
+% ----------------------------------------------------------
+\input{elementos-postextuais/anexos}
+
+%---------------------------------------------------------------------
+% INDICE REMISSIVO
+%---------------------------------------------------------------------
+\phantompart
+\printindex
+%---------------------------------------------------------------------
+
+\end{document}
