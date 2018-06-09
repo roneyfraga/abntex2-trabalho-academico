@@ -49,6 +49,7 @@
 *.vrb
 *.xdy
 *.tdo
+*.nls
 *.pdf
 !pricipal.pdf
 
